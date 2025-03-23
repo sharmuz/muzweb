@@ -35,7 +35,7 @@ fn handle_connection(mut stream: TcpStream) {
         _ => ("HTTP/1.1 404 D'OH!", "404.html"),
     };
 
-    let response = create_response(&status_line, &html_file);
+    let response = create_response(status_line, html_file);
     stream.write_all(response.as_bytes()).unwrap();
 }
 
@@ -49,5 +49,5 @@ fn create_response(status_line: &str, html_file: &str) -> String {
         {contents}"
     );
 
-    return response;
+    response
 }
