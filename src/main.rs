@@ -1,9 +1,11 @@
+use muzweb::ThreadPool;
 use std::{
     fs,
-    io::{prelude::*, BufReader},
-    net::{TcpListener, TcpStream}, thread, time::Duration,
+    io::{BufReader, prelude::*},
+    net::{TcpListener, TcpStream},
+    thread,
+    time::Duration,
 };
-use muzweb::ThreadPool;
 
 fn main() {
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
@@ -29,7 +31,7 @@ fn handle_connection(mut stream: TcpStream) {
         "GET /sleep HTTP/1.1" => {
             thread::sleep(Duration::from_secs(10));
             ("HTTP/1.1 200 OK", "hello.html")
-        },
+        }
         _ => ("HTTP/1.1 404 D'OH!", "404.html"),
     };
 
@@ -47,5 +49,5 @@ fn create_response(status_line: &str, html_file: &str) -> String {
         {contents}"
     );
 
-    return response
+    return response;
 }
